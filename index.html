@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạp Hóa Công Nghệ - Studio Affiliate Không Giới Hạn</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        hub: {
+                            dark: '#0f172a',
+                            darker: '#090d16',
+                            panel: '#1e293b',
+                            accent: '#f26522',
+                            cyan: '#25f4ee',
+                            pink: '#fe2c55'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #090d16; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        .phone-frame { aspect-ratio: 9/16; max-height: 520px; }
+    </style>
+</head>
+<body class="bg-hub-darker text-slate-100 h-screen flex flex-col overflow-hidden font-sans select-none">
+
+    <!-- TOP HEADER -->
+    <header class="bg-hub-dark border-b border-slate-800 h-14 flex items-center justify-between px-6 shrink-0 z-20">
+        <div class="flex items-center space-x-3">
+            <div class="bg-gradient-to-tr from-orange-500 to-pink-600 p-2 rounded-xl text-white font-bold flex items-center justify-center w-9 h-9 shadow-lg shadow-orange-500/20">
+                <i class="fa-solid fa-clapperboard text-sm"></i>
+            </div>
+            <div>
+                <h1 class="font-extrabold text-sm tracking-wide text-white flex items-center">
+                    TẠP HÓA CÔNG NGHỆ <span class="ml-2 px-2 py-0.5 bg-orange-500/20 text-orange-400 rounded-full text-[10px] border border-orange-500/30">UNLIMITED STUDIO</span>
+                </h1>
+                <p class="text-[11px] text-slate-400">Tạo kịch bản & Đọc lời thoại tự động cho sản phẩm mọi tầm giá</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <button onclick="exportProjectZip()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold border border-slate-700 flex items-center space-x-2 transition shadow">
+                <i class="fa-solid fa-download text-sky-400"></i>
+                <span>Tải Toàn Bộ Mã Nguồn (.zip)</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN WORKSPACE -->
+    <div class="flex-1 flex overflow-hidden">
+
+        <!-- COLUMN 1: PRODUCT & VOICE CONFIG -->
+        <div class="w-96 bg-hub-dark border-r border-slate-800 flex flex-col shrink-0 overflow-y-auto p-4 space-y-4">
+            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider flex items-center">
+                <i class="fa-solid fa-box-archive mr-2 text-orange-500"></i> Thông Tin Sản Phẩm & Affiliate
+            </h2>
+
+            <!-- FORM FIELDS -->
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 font-bold mb-1">Tên Sản Phẩm:</label>
+                    <input type="text" id="prod-name" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 focus:outline-none" value="Loa Bluetooth / Thiết bị thông minh cao cấp">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-400 font-bold mb-1">Mức Giá:</label>
+                        <input type="text" id="prod-price" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 focus:outline-none" value="1.850.000đ">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 font-bold mb-1">Phân Khúc:</label>
+                        <select id="prod-tier" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 focus:outline-none">
+                            <option value="high">Cao cấp / Đáng đầu tư</option>
+                            <option value="mid">Tầm trung / Tiện ích</option>
+                            <option value="budget">Bình dân / Hot trend</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 font-bold mb-1">Điểm Nhấn / Tính Năng Chính:</label>
+                    <textarea id="prod-features" rows="2" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:border-orange-500 focus:outline-none">Âm thanh cực khủng, hoàn thiện nhôm nguyên khối, pin trâu 15h, kết nối đa thiết bị.</textarea>
+                </div>
+            </div>
+
+            <!-- GENERATE BUTTON -->
+            <button onclick="generateScriptAndAudio()" class="w-full bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white py-3 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-orange-500/20 transition cursor-pointer">
+                <i class="fa-solid fa-wand-magic-sparkles text-sm"></i>
+                <span>Tạo Kịch Bản & Đọc Lời Thoại AI</span>
+            </button>
+
+            <!-- VOICE & AUDIO CONTROLS -->
+            <div class="bg-slate-900 p-3 rounded-xl border border-slate-800 space-y-2">
+                <div class="font-bold text-slate-300 flex items-center justify-between">
+                    <span><i class="fa-solid fa-volume-high text-cyan-400 mr-1.5"></i> Giọng Đọc AI (TTS)</span>
+                    <span id="tts-status" class="text-[10px] text-slate-500">Sẵn sàng</span>
+                </div>
+                <div class="flex space-x-2">
+                    <button onclick="playVoiceOver()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white py-2 rounded-lg text-xs font-bold transition flex items-center justify-center space-x-1">
+                        <i class="fa-solid fa-play"></i><span>Phát Lời Thoại</span>
+                    </button>
+                    <button onclick="stopVoiceOver()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-2 rounded-lg text-xs font-bold transition">
+                        <i class="fa-solid fa-stop"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMN 2: SCRIPT & ANALYSIS REPORT -->
+        <div class="flex-1 flex flex-col min-w-0 bg-slate-950 border-r border-slate-800">
+            <div class="bg-hub-dark px-4 py-2 border-b border-slate-800 text-xs font-bold text-slate-300 flex items-center justify-between">
+                <span><i class="fa-solid fa-file-lines mr-2 text-orange-400"></i> Kịch Bản Affiliate & Phân Tích Chuyên Sâu</span>
+                <span id="script-badge" class="px-2 py-0.5 bg-slate-800 text-slate-400 rounded text-[10px]">Chưa tạo</span>
+            </div>
+
+            <div class="flex-1 p-5 overflow-y-auto space-y-4 font-mono text-xs">
+                <!-- BENCHMARK CARD -->
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <div class="text-amber-400 font-bold flex items-center justify-between">
+                        <span><i class="fa-solid fa-scale-balanced mr-2"></i> 1. ĐỐI LẬP: CÓ NÓ VS KHÔNG CÓ NÓ</span>
+                    </div>
+                    <div id="report-comparison" class="text-slate-300 space-y-1 text-[11px]">
+                        <p class="text-slate-500">// Bấm nút tạo để AI phân tích tâm lý khách hàng...</p>
+                    </div>
+                </div>
+
+                <!-- SCRIPT LINES -->
+                <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <div class="text-pink-400 font-bold flex items-center justify-between">
+                        <span><i class="fa-solid fa-clapperboard mr-2"></i> 2. LỜI THOẠI CHI TIẾT (CHUẨN TIKTOK)</span>
+                    </div>
+                    <div id="report-script" class="text-slate-200 space-y-2 leading-relaxed text-xs">
+                        <p class="text-slate-500">// Lời thoại voiceover sẽ hiển thị ở đây...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLUMN 3: TIKTOK 9:16 PREVIEW & EXPORT -->
+        <div class="w-[400px] bg-hub-dark flex flex-col shrink-0 items-center justify-center p-5">
+            <div class="text-xs font-bold text-slate-400 mb-3 w-full flex items-center justify-between">
+                <span><i class="fa-solid fa-mobile-screen-button mr-1.5 text-cyan-400"></i> Xem Trước Video 9:16</span>
+                <span class="text-cyan-400 font-mono text-[10px]">TikTok Ready</span>
+            </div>
+
+            <!-- PHONE MOCKUP -->
+            <div class="phone-frame w-full bg-black rounded-3xl border-4 border-slate-700 shadow-2xl relative overflow-hidden flex flex-col justify-between p-4">
+                <div class="flex justify-between items-center text-white z-10 text-xs">
+                    <span class="font-bold bg-black/40 px-2 py-0.5 rounded-full backdrop-blur">#TapHoaCongNghe</span>
+                    <span class="bg-orange-600 px-2 py-0.5 rounded text-[10px] font-bold">HD</span>
+                </div>
+
+                <div id="preview-screen" class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-gradient-to-b from-slate-900 via-slate-950 to-black">
+                    <div class="w-14 h-14 rounded-full bg-orange-500/20 border border-orange-500/40 flex items-center justify-center mb-3 animate-pulse">
+                        <i class="fa-solid fa-video text-orange-400 text-lg"></i>
+                    </div>
+                    <p class="text-slate-300 text-xs font-bold mb-1">Studio Sẵn Sàng</p>
+                    <p class="text-slate-500 text-[11px]">Bấm tạo kịch bản để xem trực tiếp.</p>
+                </div>
+
+                <div class="z-10 space-y-1 text-left text-xs bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 -mx-4 -mb-4">
+                    <p id="preview-caption" class="font-bold text-white">@taphoacongnghe 🔥 Đầu tư đáng từng đồng!</p>
+                    <p class="text-[11px] text-slate-300">#xuhuong #review #affiliate</p>
+                </div>
+            </div>
+
+            <!-- EXPORT VIDEO BUTTON -->
+            <button onclick="downloadAffiliatePackage()" id="download-btn" disabled class="mt-4 w-full bg-slate-800 text-slate-500 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 transition cursor-not-allowed">
+                <i class="fa-solid fa-download"></i>
+                <span>Tải Gói Video & Kịch Bản (.zip)</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT LOGIC -->
+    <script>
+        let currentScriptText = "";
+
+        function generateScriptAndAudio() {
+            const name = document.getElementById('prod-name').value;
+            const price = document.getElementById('prod-price').value;
+            const tier = document.getElementById('prod-tier').value;
+            const features = document.getElementById('prod-features').value;
+
+            document.getElementById('script-badge').innerText = "Đã tạo ✓";
+            document.getElementById('script-badge').className = "px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-[10px] font-bold border border-emerald-500/30";
+
+            let comparisonHTML = "";
+            let scriptText = "";
+
+            if (tier === 'high') {
+                comparisonHTML = `
+                    <p>❌ <strong>KHÔNG CÓ NÓ:</strong> Mua đồ rẻ dùng dăm ba bữa hỏng, âm thanh ọp ẹp, trải nghiệm gián đoạn bực mình.</p>
+                    <p>✅ <strong>CÓ NÓ (${price}):</strong> Hoàn thiện đỉnh cao, bền bỉ nhiều năm, nâng tầm không gian sống và tận hưởng trọn vẹn.</p>
+                `;
+                scriptText = `Tiền nào của nấy anh em ạ! Với mức giá ${price} cho chiếc ${name}, ban đầu tui cũng đắn đo. Nhưng khi cầm trên tay và test thực tế ${features}, đúng là một trời một vực! Đừng tiếc tiền mua đồ rẻ để rồi ôm cục tức. Nhấp ngay giỏ hàng bên dưới để chốt đơn hàng chính hãng nhé!`;
+            } else if (tier === 'mid') {
+                comparisonHTML = `
+                    <p>❌ <strong>KHÔNG CÓ NÓ:</strong> Sinh hoạt bất tiện, mất thời gian xử lý thủ công các công việc hằng ngày.</p>
+                    <p>✅ <strong>CÓ NÓ (${price}):</strong> Tiện lợi gọn gàng, tiết kiệm thời gian tối đa, cực kỳ xứng đáng đồng tiền bát gạo.</p>
+                `;
+                scriptText = `Đáng đồng tiền bát gạo thực sự mọi người ơi! Chiếc ${name} giá chỉ ${price} mà giải quyết gọn gàng mọi vấn đề. Điểm ăn tiền nhất là ${features}. Anh em nào đang cần thì đừng suy nghĩ lâu nữa, tham khảo ngay ở giỏ hàng bên dưới nha!`;
+            } else {
+                comparisonHTML = `
+                    <p>❌ <strong>KHÔNG CÓ NÓ:</strong> Thiếu thốn tiện ích nhỏ nhặt nhưng cực kỳ cần thiết trong đời sống.</p>
+                    <p>✅ <strong>CÓ NÓ (${price}):</strong> Giá siêu hạt dẻ nhưng công năng vượt mong đợi, ai cũng nên có ít nhất một cái trong nhà!</p>
+                `;
+                scriptText = `Quá rẻ cho một cuộc tình! Chỉ với ${price}, anh em đã sở hữu ngay ${name} với ${features}. Dùng cực thích, không mua tiếc đứt ruột. Xem ngay giỏ hàng bên dưới để mua giá tốt nhất!`;
+            }
+
+            currentScriptText = scriptText;
+
+            document.getElementById('report-comparison').innerHTML = comparisonHTML;
+            document.getElementById('report-script').innerHTML = `
+                <p><strong>[Hook 0-3s]:</strong> "Tiền nào của nấy anh em ạ! Đã đầu tư là phải đáng..."</p>
+                <p><strong>[Thân bài]:</strong> "${scriptText}"</p>
+                <p><strong>[CTA]:</strong> "Link sản phẩm chính hãng gắn ở góc trái video nhé!"</p>
+            `;
+
+            document.getElementById('preview-screen').innerHTML = `
+                <div class="absolute inset-0 bg-gradient-to-tr from-orange-600/30 to-purple-600/30 flex flex-col items-center justify-center p-4">
+                    <span class="bg-orange-600 text-white text-[10px] px-2 py-0.5 rounded font-bold mb-2">UNLIMITED STUDIO 9:16</span>
+                    <p class="text-white text-xs font-bold text-center mb-1">${name}</p>
+                    <p class="text-emerald-400 text-xs font-mono font-bold">${price}</p>
+                </div>
+            `;
+            document.getElementById('preview-caption').innerText = `@taphoacongnghe 🔥 ${name} - ${price}`;
+
+            const dlBtn = document.getElementById('download-btn');
+            dlBtn.disabled = false;
+            dlBtn.className = "mt-4 w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-2 shadow-lg shadow-emerald-600/30 transition cursor-pointer";
+
+            document.getElementById('tts-status').innerText = "Sẵn sàng đọc thoại";
+            document.getElementById('tts-status').className = "text-[10px] text-emerald-400 font-bold";
+        }
+
+        function playVoiceOver() {
+            if (!currentScriptText) {
+                alert("Vui lòng bấm 'Tạo Kịch Bản & Đọc Lời Thoại AI' trước!");
+                return;
+            }
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(currentScriptText);
+                utterance.lang = 'vi-VN';
+                utterance.rate = 1.05;
+                document.getElementById('tts-status').innerText = "Đang đọc...";
+                utterance.onend = () => {
+                    document.getElementById('tts-status').innerText = "Đã đọc xong";
+                };
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Trình duyệt không hỗ trợ Web Speech API.");
+            }
+        }
+
+        function stopVoiceOver() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                document.getElementById('tts-status').innerText = "Đã dừng";
+            }
+        }
+
+        function downloadAffiliatePackage() {
+            const zip = new JSZip();
+            zip.file("index.html", document.documentElement.outerHTML);
+            zip.file("script_voiceover.txt", currentScriptText);
+            zip.file("README.md", "# Tạp Hóa Công Nghệ - Unlimited Affiliate Studio\n\nHệ thống sinh kịch bản và lời thoại tự động cho sản phẩm mọi tầm giá.\n\n- Hỗ trợ phân khúc cao cấp đến bình dân.\n- Tích hợp công nghệ Text-to-Speech đọc trực tiếp kịch bản.\n- Xuất bản file zip hoàn chỉnh.");
+            zip.generateAsync({ type: "blob" }).then(content => {
+                saveAs(content, "tap_hoa_cong_nghe_studio.zip");
+            });
+        }
+    </script>
+</body>
+</html>
